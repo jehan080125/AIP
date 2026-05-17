@@ -1,2 +1,1 @@
-hello~
-ohmyomy god
+인공프 상빈이 혼자 다하는 걸로!~
