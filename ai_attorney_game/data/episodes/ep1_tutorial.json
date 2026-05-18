@@ -1,0 +1,451 @@
+{
+  "episode_id": "ep1_tutorial",
+  "title": "첫 번째 역전 — 변호인의 반박",
+  "difficulty_available": ["easy", "hard"],
+  "absolute_truth": {
+    "description": "피해자는 밤 10시에 공원에서 둔기에 맞아 사망했다. 피고인은 사건 당시 현장에 없었으며, CCTV에 찍힌 인물은 피고인이 아니다.",
+    "time_of_death": "22:00",
+    "location": "중앙공원",
+    "culprit": "victim_acquaintance"
+  },
+  "scripted_trap": {
+    "description": "피고인 알리바이: 공원이 밝아서 주변을 잘 봤다고 단정하면 위험하다.",
+    "fatal_evidence_id": "ev_003"
+  },
+  "characters": {
+    "defendant": {
+      "id": "def_001",
+      "name": "김피고",
+      "role": "defendant",
+      "portrait_idle": "/assets/characters/def_001_idle.png",
+      "portrait_sweat": "/assets/characters/def_001_sweat.png"
+    },
+    "witness_guard": {
+      "id": "wit_001",
+      "name": "박경비",
+      "role": "witness",
+      "portrait_idle": "/assets/characters/wit_001_idle.png"
+    },
+    "witness_neighbor": {
+      "id": "wit_002",
+      "name": "이이웃",
+      "role": "witness",
+      "portrait_idle": "/assets/characters/wit_002_idle.png"
+    },
+    "prosecutor": {
+      "id": "pros_001",
+      "name": "최검사",
+      "role": "prosecutor",
+      "portrait_idle": "/assets/characters/pros_001_idle.png"
+    },
+    "judge": {
+      "id": "judge_001",
+      "name": "판사",
+      "role": "judge",
+      "portrait_idle": "/assets/characters/judge_idle.png"
+    },
+    "player": {
+      "id": "player",
+      "name": "변호인",
+      "role": "defense"
+    }
+  },
+  "clickable_objects": [
+    { "id": "obj_desk", "evidence_id": "ev_001", "label": "책상 서랍", "position": { "x": 15, "y": 60 } },
+    { "id": "obj_monitor", "evidence_id": "ev_002", "label": "CCTV 모니터", "position": { "x": 50, "y": 35 } },
+    { "id": "obj_lamp", "evidence_id": "ev_003", "label": "가로등 정비 기록", "position": { "x": 80, "y": 70 } },
+    { "id": "obj_phone", "evidence_id": "ev_004", "label": "통화 기록", "position": { "x": 35, "y": 75 } },
+    { "id": "obj_print", "evidence_id": "ev_005", "label": "지문 감정서", "position": { "x": 65, "y": 50 } }
+  ],
+  "evidences": [
+    {
+      "id": "ev_001",
+      "name": "부검 감정서",
+      "description": "사망 시각 22:00~23:00 추정, 둔기 타격 사인.",
+      "fact": "사망 시각은 밤 10시 전후이다.",
+      "details": "사건 직후 현장 이탈 인물과 시간대가 일치하지 않을 수 있다.",
+      "tags": ["시간", "부검"]
+    },
+    {
+      "id": "ev_002",
+      "name": "현장 CCTV 기록",
+      "description": "22:15 공원 출구 뒷모습. 체형·옷차림이 피고인과 다름.",
+      "fact": "CCTV 인물은 피고인과 명백히 다르다.",
+      "details": "검사는 현장에 누군가 있었다고 주장하지만, 그 사람이 피고인이라는 증거는 없다.",
+      "tags": ["CCTV", "신원"]
+    },
+    {
+      "id": "ev_003",
+      "name": "가로등 정비 기록",
+      "description": "사건 당일 21:50~22:30 공원 중앙 가로등 회로 차단. 조도 불량.",
+      "fact": "사건 시각 공원 중앙 가로등은 꺼져 있었다.",
+      "details": "공원 중앙은 어두워 거리와 각도에 따라 얼굴 식별이 어려웠다.",
+      "tags": ["환경", "목격"]
+    },
+    {
+      "id": "ev_004",
+      "name": "피해자 통화 기록",
+      "description": "사건 2시간 전 피해자와 제3자의 다툼 통화.",
+      "fact": "피해자는 다른 사람과 갈등이 있었다.",
+      "details": "피고인 외 동기를 가진 인물이 존재한다.",
+      "tags": ["동기", "통화"]
+    },
+    {
+      "id": "ev_005",
+      "name": "지문 감정서",
+      "description": "현장에서 채집된 지문. 피고인과 부분 일치하나 채집 시각 불명확.",
+      "fact": "지문만으로 범행 시각·방법을 단정할 수 없다.",
+      "details": "접촉 시점이 불분명하면 유죄 입증에 부족하다.",
+      "tags": ["지문", "과학수사"]
+    }
+  ],
+  "testimony": [],
+  "contradictions": [
+    {
+      "rule_id": "rule_dark_park_legacy",
+      "required_evidence_id": "ev_003",
+      "target_statement_id": "stmt_witness_saw_defendant",
+      "breakdown_delta": 100,
+      "description": "보조: 가로등 기록과 목격 증언 모순"
+    }
+  ],
+  "breakdown_conditions": { "gauge_threshold": 100, "cutscene_id": "bd_default" },
+  "character_knowledge_scope": {
+    "def_001": ["public_evidence", "court_records"],
+    "wit_001": ["own_statements"],
+    "judge_001": ["public_evidence", "court_records"]
+  },
+  "allowed_lies": [],
+  "forbidden_claims": [
+    "피고인이 자백했다",
+    "진범은 피해자의 지인이다",
+    "culprit",
+    "absolute_truth"
+  ],
+  "prosecution_case": {
+    "fixed_claim_pool": [
+      {
+        "claim_id": "claim_presence",
+        "summary": "피고인은 사건 시각 현장에 있었고, 경비 증인이 목격했다.",
+        "supporting_evidence_ids": [],
+        "supporting_testimony_ids": ["stmt_witness_saw_defendant"],
+        "weakness_ids": ["weak_dark_identification"],
+        "priority": 1,
+        "is_core_claim": true
+      },
+      {
+        "claim_id": "claim_cctv",
+        "summary": "CCTV에 찍힌 인물이 피고인의 옷차림과 유사하므로 현장 이탈 정황이 있다.",
+        "supporting_evidence_ids": ["ev_002"],
+        "supporting_testimony_ids": [],
+        "weakness_ids": ["weak_cctv_not_defendant"],
+        "priority": 2,
+        "is_core_claim": true
+      },
+      {
+        "claim_id": "claim_motive",
+        "summary": "피고인은 피해자와 갈등이 있어 살해 동기가 있다.",
+        "supporting_evidence_ids": ["ev_004", "ev_001"],
+        "supporting_testimony_ids": ["stmt_neighbor_argument"],
+        "weakness_ids": ["weak_motive_not_action"],
+        "priority": 3,
+        "is_core_claim": true
+      }
+    ],
+    "allowed_evidence_ids": ["ev_001", "ev_002", "ev_003", "ev_004", "ev_005"],
+    "forbidden_claims": [
+      "피고인이 자백했다.",
+      "CCTV에 피고인 얼굴이 선명히 찍혔다.",
+      "JSON에 없는 증거를 제시한다."
+    ],
+    "strategy_rules": [
+      "weakened_claim_ids에 있는 주장은 핵심 주장으로 재사용하지 않는다.",
+      "priority가 높고 아직 약화되지 않은 claim을 우선한다.",
+      "사용자가 핵심 모순을 짚으면 retreat 또는 pivot한다.",
+      "모든 핵심 claim이 약화되면 최종 판결한다."
+    ]
+  },
+  "trials": [
+    {
+      "trial_id": "trial_1",
+      "title": "첫 번째 재판",
+      "order": 1,
+      "stages": [
+        {
+          "stage_id": "stage_1_witness_guard",
+          "stage_type": "vs_witness",
+          "order": 1,
+          "active_witness_id": "wit_001",
+          "life": {
+            "easy": 5,
+            "hard": 3
+          },
+          "witness_mental": 100,
+          "fixed_testimony_chain": [
+            {
+              "statement_id": "stmt_guard_1",
+              "text": "저는 사건 시각 공원 중앙에서 피고인을 분명히 보았습니다.",
+              "weakness_id": "weak_dark_identification",
+              "required_evidence_ids": ["ev_003"],
+              "required_logic_points": [
+                "사건 시각 가로등이 꺼져 있었다.",
+                "증인은 어두운 환경에서 피고인을 봤다고 주장한다.",
+                "어두운 환경에서는 피고인을 명확히 식별하기 어렵다.",
+                "따라서 증인의 목격 진술은 신빙성이 낮다."
+              ],
+              "damage_on_success": 35,
+              "life_loss_on_fail": 1,
+              "counter_statement_id": "counter_guard_1"
+            }
+          ],
+          "counter_statements": [
+            {
+              "statement_id": "counter_guard_1",
+              "text": "가로등이 꺼져 있었다고 해도, 저는 피고인의 체형과 옷차림을 보고 알 수 있었습니다.",
+              "weakness_id": "weak_clothes_uncertain",
+              "required_evidence_ids": ["ev_002", "stmt_guard_1"],
+              "required_logic_points": [
+                "증인은 처음에는 피고인을 직접 보았다고 주장했다.",
+                "이제는 체형과 옷차림으로 추정했다고 말을 바꾸고 있다.",
+                "체형과 옷차림만으로 피고인을 특정하기는 어렵다.",
+                "따라서 증인의 식별 진술은 더 약해진다."
+              ],
+              "damage_on_success": 35,
+              "life_loss_on_fail": 1,
+              "next_counter_statement_id": "counter_guard_2"
+            },
+            {
+              "statement_id": "counter_guard_2",
+              "text": "그 CCTV가 피고인과 달라 보여도, 제 기억만큼은 틀림없습니다.",
+              "weakness_id": "weak_memory_without_evidence",
+              "required_evidence_ids": ["ev_002", "counter_guard_1"],
+              "required_logic_points": [
+                "증인은 객관 증거보다 자기 기억을 우선하고 있다.",
+                "CCTV 인물은 피고인과 다르다.",
+                "증인의 말은 객관 증거와 충돌한다.",
+                "증인의 식별 신뢰도는 유지되기 어렵다."
+              ],
+              "damage_on_success": 35,
+              "life_loss_on_fail": 1
+            }
+          ],
+          "clear_condition": {
+            "witness_mental_lte": 0
+          },
+          "score_weight": 1.0,
+          "hints": [
+            "증인이 정확히 무엇을 보았다고 말했는지 확인하십시오.",
+            "그 시간의 현장 밝기를 확인해 보십시오.",
+            "가로등 기록과 목격 진술을 연결해 보십시오.",
+            "증인이 말을 바꿨다면 이전 발언도 증거처럼 사용할 수 있습니다."
+          ]
+        },
+        {
+          "stage_id": "stage_2_vs_prosecutor",
+          "stage_type": "vs_prosecutor",
+          "order": 2,
+          "life": {
+            "easy": 5,
+            "hard": 3
+          },
+          "judge_persuasion": 0,
+          "prosecution_claim_pool": ["claim_motive", "claim_cctv"],
+          "requires_defense_witness": true,
+          "defense_witnesses": ["def_001"],
+          "summon_witness_action": {
+            "action_type": "summon_witness",
+            "label": "피고인 신문"
+          },
+          "score_weight": 1.3,
+          "hints": [
+            "이 스테이지는 이후 확장될 검사 논리 공방입니다.",
+            "현재 MVP에서는 placeholder로 자동 처리됩니다."
+          ]
+        }
+      ]
+    }
+  ],
+  "trial_rounds": [
+    {
+      "round_id": "r1_witness_identification",
+      "order": 1,
+      "active_witness_id": "wit_001",
+      "fixed_witness_testimony": {
+        "statement_id": "stmt_witness_saw_defendant",
+        "text": "저는 사건 시각 공원 중앙에서 피고인을 분명히 보았습니다.",
+        "claim_type": "identification",
+        "is_fixed": true
+      },
+      "available_claim_ids": ["claim_presence"],
+      "core_contradictions": [
+        {
+          "contradiction_id": "weak_dark_identification",
+          "target_claim_id": "claim_presence",
+          "summary": "사건 시각 공원 중앙 가로등이 꺼져 있었으므로, 증인이 그 거리에서 피고인을 명확히 식별했다는 주장은 신빙성이 낮다.",
+          "required_points": [
+            "사건 시각 공원 중앙 가로등은 꺼져 있었다",
+            "증인은 피고인을 분명히 봤다고 주장한다",
+            "어두운 환경에서는 거리·각도에 따라 오인 가능하다",
+            "목격만으로 유죄를 단정할 수 없다"
+          ],
+          "related_evidence_ids": ["ev_003"],
+          "legal_effect": "증언 신빙성 약화"
+        }
+      ],
+      "expected_defense_points": ["가로등", "꺼", "어두", "목격", "식별", "신빙성", "단정"],
+      "related_evidence_ids": ["ev_003"],
+      "scoring": {
+        "max_score": 20,
+        "pass_threshold": 14,
+        "core_match_threshold": 0.75,
+        "attempt_penalty": 2,
+        "hint_penalty": 1
+      },
+      "hints": [
+        "검사 주장은 경비 증인의 목격에 의존합니다.",
+        "증인이 본 시각의 현장 환경을 확인하십시오.",
+        "가로등 정비 기록을 제시해 보십시오.",
+        "공원 중앙이 어두웠다면 목격의 확실성을 재검토할 수 있습니다."
+      ],
+      "success_effect": {
+        "mark_claim_weakened": "claim_presence",
+        "mark_statement_weakened": "stmt_witness_saw_defendant"
+      },
+      "failure_effect": { "attempt_delta": 1, "score_penalty": 2 }
+    },
+    {
+      "round_id": "r2_cctv_identity",
+      "order": 2,
+      "active_witness_id": "wit_002",
+      "fixed_witness_testimony": {
+        "statement_id": "stmt_neighbor_argument",
+        "text": "그날 밤 피해자 집 근처에서 피고인과 피해자가 크게 다투는 소리를 들었습니다.",
+        "claim_type": "hearsay",
+        "is_fixed": true
+      },
+      "available_claim_ids": ["claim_cctv", "claim_motive"],
+      "core_contradictions": [
+        {
+          "contradiction_id": "weak_cctv_not_defendant",
+          "target_claim_id": "claim_cctv",
+          "summary": "CCTV 인물의 체형·옷차림이 피고인과 다르므로, 피고인의 현장 이탈을 주장할 수 없다.",
+          "required_points": [
+            "CCTV에 찍힌 인물은 피고인과 다르다",
+            "검사는 옷차림 유사성만으로 연결한다",
+            "신원 동일시가 성립하지 않는다",
+            "합리적 의심이 생긴다"
+          ],
+          "related_evidence_ids": ["ev_002"],
+          "legal_effect": "유사만으로는 입증 부족"
+        }
+      ],
+      "expected_defense_points": ["CCTV", "다르", "체형", "옷", "피고인 아님", "동일시"],
+      "related_evidence_ids": ["ev_002"],
+      "scoring": {
+        "max_score": 20,
+        "pass_threshold": 14,
+        "core_match_threshold": 0.75,
+        "attempt_penalty": 2,
+        "hint_penalty": 1
+      },
+      "hints": [
+        "검사가 CCTV를 근거로 주장할 수 있습니다.",
+        "CCTV 기록의 인물 특징을 확인하십시오.",
+        "피고인과의 차이점을 지적하십시오."
+      ],
+      "success_effect": { "mark_claim_weakened": "claim_cctv" },
+      "failure_effect": { "attempt_delta": 1, "score_penalty": 2 }
+    },
+    {
+      "round_id": "r3_motive",
+      "order": 3,
+      "active_witness_id": "wit_001",
+      "fixed_witness_testimony": {
+        "statement_id": "stmt_witness_saw_defendant",
+        "text": "피고인이 그날 밤 공원에 있는 것은 분명했습니다.",
+        "claim_type": "identification",
+        "is_fixed": true
+      },
+      "available_claim_ids": ["claim_motive"],
+      "core_contradictions": [
+        {
+          "contradiction_id": "weak_motive_not_action",
+          "target_claim_id": "claim_motive",
+          "summary": "갈등이 있다고 해서 살인까지 저질렀다고 볼 수 없으며, 다른 용의자 가능성이 있다.",
+          "required_points": [
+            "피해자는 제3자와 갈등이 있었다",
+            "동기만으로 살인을 단정할 수 없다",
+            "다른 용의 가능성이 있다",
+            "합리적 의심"
+          ],
+          "related_evidence_ids": ["ev_004", "ev_001"],
+          "legal_effect": "동기≠범행"
+        }
+      ],
+      "expected_defense_points": ["동기", "갈등", "단정", "다른", "용의", "합리적"],
+      "related_evidence_ids": ["ev_004", "ev_001"],
+      "scoring": {
+        "max_score": 20,
+        "pass_threshold": 14,
+        "core_match_threshold": 0.75,
+        "attempt_penalty": 2,
+        "hint_penalty": 1
+      },
+      "hints": [
+        "검사는 피고인의 동기를 강조할 것입니다.",
+        "통화 기록을 확인하십시오.",
+        "동기만으로는 살인 입증이 부족함을 설명하십시오."
+      ],
+      "success_effect": { "mark_claim_weakened": "claim_motive" },
+      "failure_effect": { "attempt_delta": 1, "score_penalty": 2 }
+    }
+  ],
+  "character_files": [
+    {
+      "character_id": "wit_001",
+      "name": "박경비",
+      "role": "witness",
+      "description": "사건 시각 공원 중앙에서 피고인을 보았다고 주장하는 경비원.",
+      "relation_to_defendant": "사건 전 직접적 관계는 확인되지 않음.",
+      "known_statements": [
+        "저는 사건 시각 공원 중앙에서 피고인을 분명히 보았습니다."
+      ],
+      "credibility_state": "steady",
+      "portrait": "/court-assets/characters/witness/0.png",
+      "expression_state": "idle"
+    },
+    {
+      "character_id": "def_001",
+      "name": "김피고",
+      "role": "defendant",
+      "description": "피고인. 사건 당시 현장에 없었다고 주장한다.",
+      "relation_to_defendant": "본인",
+      "known_statements": [],
+      "credibility_state": "unknown",
+      "portrait": "/court-assets/characters/defense/0.png",
+      "expression_state": "idle"
+    },
+    {
+      "character_id": "pros_001",
+      "name": "최검사",
+      "role": "prosecutor",
+      "description": "증인의 목격 진술과 정황 증거를 바탕으로 피고인의 현장 존재를 주장한다.",
+      "relation_to_defendant": "검찰",
+      "known_statements": [],
+      "credibility_state": "official",
+      "portrait": "/court-assets/characters/prosecutor/0.png",
+      "expression_state": "idle"
+    },
+    {
+      "character_id": "judge_001",
+      "name": "판사",
+      "role": "judge",
+      "description": "코드가 계산한 판정 결과를 법정 안에서 설명하는 심판.",
+      "relation_to_defendant": "재판부",
+      "known_statements": [],
+      "credibility_state": "neutral",
+      "portrait": "/court-assets/characters/judge/0.png",
+      "expression_state": "idle"
+    }
+  ]
+}
